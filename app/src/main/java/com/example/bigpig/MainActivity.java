@@ -2,23 +2,26 @@ package com.example.bigpig;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.TextView.OnEditorActionListener;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
 import java.util.Random;
+
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity
+    implements OnEditorActionListener
 {
-
     // variable and field declarations
-
-    PigGame game;
+    private PigGame game;
     private EditText player1Name;
     private EditText player2Name;
     private TextView player1ScoreTV;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity
     private TextView turnPointsTV;
     private ImageView dieView;
     private Button rollDie;
-    private Button endTurn;
+    private Button endTurn ;
     private Button newGame;
 
     // event handlers
@@ -80,32 +83,33 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PigGame game = new PigGame();
+
         // Widget references
         // player1 editText name
         player1Name = (EditText)findViewById(R.id.player1EditText);
         // player2 editText name
         player2Name = (EditText)findViewById(R.id.player2EditText);
         // new game button
-        newGameButton = (Button)findViewById(R.id.NewGameButton);
-        // roll die button
-        // end turn button
+        newGameButton = (Button)findViewById(R.id.newGameButton);
 
-        // Set event listeners
 
+        //displayScores();
     }
-
-    // run PigGame
-    private void newGame()
+    @Override
+    // connected to EditText widget
+    public boolean OnEditorAction(TextView v, int actionID, KeyEvent event)
     {
-        PigGame pigGame = new PigGame();
-
-        // user input strings
-        String player1NameText = player1Name.getText().ToString();
-        String player2NameText = player2Name.getText().ToString();
-
-        // displays
-        player1Name.setText(player1NameText);
-        player2Name.setText(player2NameText);
+        // Close the soft keyboard
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        return false;
+    }
+    @Override
+    // this would replace onClickListener...
+    public void OnClick(View v)
+    {
+        play(v);
     }
 
     // name edits

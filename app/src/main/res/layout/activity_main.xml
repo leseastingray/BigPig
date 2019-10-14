@@ -42,24 +42,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/NewGameButton"
+        android:id="@+id/playButton"
         android:layout_width="50dp"
         android:layout_height="20dp"
-        android:text="New Game"
-        android:textSize="40sp"/>
+        android:text="Roll"
+        android:onClick="play"
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="601dp" />
 
     <Button
-        android:id="@+id/RollDiceButton"
+        android:id="@+id/endTurnButton"
         android:layout_width="50dp"
         android:layout_height="20dp"
         android:text="New Game"
-        android:textSize="40sp"/>
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="601dp" />
 
     <Button
-        android:id="@+id/EndTurnButton"
+        android:id="@+id/newGameButton"
         android:layout_width="50dp"
         android:layout_height="20dp"
         android:text="New Game"
-        android:textSize="40sp"/>
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="601dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
