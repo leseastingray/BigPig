@@ -2,7 +2,9 @@ package com.example.bigpig;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.TextView.OnEditorActionListener;
@@ -12,17 +14,66 @@ import java.util.Random;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity
-    implements OnEditorActionListener {
+{
 
     // variable and field declarations
+
+    PigGame game;
     private EditText player1Name;
     private EditText player2Name;
     private TextView player1ScoreTV;
     private TextView player2ScoreTV;
     private TextView turnPointsTV;
+    private ImageView dieView;
     private Button rollDie;
     private Button endTurn;
     private Button newGame;
+
+    // event handlers
+    public void play(View v)
+    {
+        int playerRoll = game.rollDie();
+        turnPointsTV.setText(playerRoll);
+    }
+    private void displayDie(Die die)
+    {
+        int id = 0;
+
+        switch (die)
+        {
+            case one:
+                id = R.drawable.die8side1;
+                break;
+            case two:
+                id = R.drawable.die8side2;
+                break;
+            case three:
+                id = R.drawable.die8side3;
+            case four:
+                id = R.drawable.die8side4;
+                break;
+            case five:
+                id = R.drawable.die8side5;
+                break;
+            case six:
+                id = R.drawable.die8side6;
+                break;
+            case seven:
+                id = R.drawable.die8side7;
+                break;
+            case eight:
+                id = R.drawable.die8side8;
+                break;
+        }
+        dieView.setImageResource(id);
+    }
+
+    public void endTurn()
+    {
+        game.changeTurn();
+    }
+    // display dice face
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +92,6 @@ public class MainActivity extends AppCompatActivity
 
         // Set event listeners
 
-        // roll die
-        // end turn
-        // new game
     }
 
     // run PigGame
