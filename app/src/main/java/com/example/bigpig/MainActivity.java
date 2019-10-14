@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     private Button endTurn ;
     private Button newGame;
 
+
     // event handlers
     public void play(View v)
     {
@@ -93,7 +94,6 @@ public class MainActivity extends AppCompatActivity
         // new game button
         newGameButton = (Button)findViewById(R.id.newGameButton);
 
-
         //displayScores();
     }
     @Override
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         return false;
     }
+
     @Override
     // this would replace onClickListener...
     public void OnClick(View v)
@@ -113,4 +114,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     // name edits
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        outState.putInt(player1ScoreTV.toString(), game.getPlayer1Score());
+        outState.putInt(player2ScoreTV.toString(), game.getPlayer2Score());
+        super.onSaveInstanceState(outState);
+    }
 }
