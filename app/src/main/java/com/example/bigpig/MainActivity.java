@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity
     private TextView player2ScoreTV;
     private TextView turnPointsTV;
     private ImageView dieView;
-    private Button rollDie;
-    private Button endTurn ;
-    private Button newGame;
+    private Button rollDieButton;
+    private Button endTurnButton ;
+    private Button newGameButton;
 
 
     // event handlers
