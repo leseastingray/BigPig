@@ -95,7 +95,7 @@ public class PigGame {
         return turnPoints;
     }
 
-    public String getCurrentPalyer()
+    public String getCurrentPlayer()
     {
         if(turn % 2 == 1)
             return player1Name;

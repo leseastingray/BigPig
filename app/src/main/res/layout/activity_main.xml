@@ -10,63 +10,75 @@
         android:id="@+id/player1EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="53dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/player2EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="109dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/player1Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
         android:text=""
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/player1EditText"
+        app:layout_constraintTop_toBottomOf="@+id/player1EditText"
         app:layout_marginLeft="70dp" />
 
     <TextView
         android:id="@+id/player2Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
         android:text=""
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/player2EditText"
+        app:layout_constraintTop_toBottomOf="@+id/player2EditText" />
 
     <Button
-        android:id="@+id/playButton"
+        android:id="@+id/rollDieButton"
         android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:text="Roll"
+        android:layout_height="0dp"
+        android:layout_marginStart="79dp"
         android:onClick="play"
+        android:text="@string/roll_die_button"
         android:textSize="40sp"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="601dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/endTurnButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/endTurnButton" />
 
     <Button
         android:id="@+id/endTurnButton"
         android:layout_width="50dp"
         android:layout_height="20dp"
-        android:text="New Game"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/end_turn_button"
         android:textSize="40sp"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="601dp" />
+        app:layout_constraintBottom_toTopOf="@+id/newGameButton"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/newGameButton"
         android:layout_width="50dp"
         android:layout_height="20dp"
-        android:text="New Game"
+        android:layout_marginBottom="70dp"
+        android:text="@string/new_game_button"
         android:textSize="40sp"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="601dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

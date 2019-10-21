@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,26 +21,141 @@ import java.util.Random;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity
-    implements OnEditorActionListener
+    implements OnEditorActionListener, OnClickListener
 {
     // variable and field declarations
     private PigGame game;
-    private EditText player1Name;
-    private EditText player2Name;
-    private TextView player1ScoreTV;
-    private TextView player2ScoreTV;
-    private TextView turnPointsTV;
+    private EditText player1NameEditText;
+    private EditText player2NameEditText;
+    private TextView player1ScoreTextView;
+    private TextView player2ScoreTextView;
+    private TextView turnPointsTextView;
     private ImageView dieView;
     private Button rollDieButton;
     private Button endTurnButton ;
     private Button newGameButton;
 
+    // for saving and restoring values
+    private SharedPreferences savedValues;
+
+    private String player1NameString = "";
+    private String player2NameString = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        PigGame game = new PigGame();
+
+        // Widget references
+        // player1 editText name
+        player1NameEditText = (EditText)findViewById(R.id.player1EditText);
+        // player2 editText name
+        player2NameEditText = (EditText)findViewById(R.id.player2EditText);
+        // new game button
+        newGameButton = (Button)findViewById(R.id.newGameButton);
+        // rollDie button
+        rollDieButton = (Button)findViewById(R.id.rollDieButton);
+        // endTurn
+        endTurnButton = (Button)findViewById(R.id.endTurnButton);
+
+        // onEditor listeners
+        player1NameEditText.setOnEditorActionListener(this);
+        player2NameEditText.setOnEditorActionListener(this);
+        // onClick listeners
+        newGameButton.setOnClickListener(this);
+        rollDieButton.setOnClickListener(this);
+        endTurnButton.setOnClickListener(this);
+
+        //SharedPreferences for saving values
+        savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+
+    }
+    @Override
+    public void onPause()
+    {
+        // save instance variables
+        Editor editor = savedValues.edit();
+        editor.putString("player1NameString", player1NameString);
+        editor.putString("player2NameString", player2NameString);
+
+        editor.commit();
+        super.onPause();
+    }
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        // get instance variables
+        player1NameString = savedValues.getString("player1NameString", "");
+        player2NameString = savedValues.getString("player2NameString", "");
+    }
+
+    @Override
+    // connected to EditText widget
+    public boolean onEditorAction(TextView v, int actionID, KeyEvent event)
+    {
+        // Close the soft keyboard
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+        // set
+        if (actionID == EditorInfo.IME_ACTION_DONE ||
+                actionID == EditorInfo.IME_ACTION_UNSPECIFIED)
+        {
+            player1NameEditText.setText(player1NameString);
+            player2NameEditText.setText(player2NameString);
+        }
+        return false;
+    }
+
+    // name edits
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        outState.putInt(player1ScoreTextView.toString(), game.getPlayer1Score());
+        outState.putInt(player2ScoreTextView.toString(), game.getPlayer2Score());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    // this would replace onClickListener...
+    public void onClick(View v)
+    {
+        // get button id
+        switch (v.getId())
+        {
+            // rollDieButton:
+            //     roll game die
+            //     display die
+            //     set text to points
+            // endTurnButton:
+            //     calculate points
+            //     check for winner
+            //     change turn
+            // newGameButton:
+            //     reset game
+            case R.id.rollDieButton:
+                int playerRoll = game.rollDie();
+                turnPointsTextView.setText(playerRoll);
+                break;
+            case R.id.endTurnButton:
+                game.checkForWinner();
+                game.changeTurn();
+                break;
+            case R.id.newGameButton:
+                game.resetGame();
+
+        }
+    }
 
     // event handlers
     public void play(View v)
     {
         int playerRoll = game.rollDie();
-        turnPointsTV.setText(playerRoll);
+        turnPointsTextView.setText(playerRoll);
     }
     private void displayDie(Die die)
     {
@@ -72,53 +190,4 @@ public class MainActivity extends AppCompatActivity
         dieView.setImageResource(id);
     }
 
-    public void endTurn()
-    {
-        game.changeTurn();
-    }
-    // display dice face
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        PigGame game = new PigGame();
-
-        // Widget references
-        // player1 editText name
-        player1Name = (EditText)findViewById(R.id.player1EditText);
-        // player2 editText name
-        player2Name = (EditText)findViewById(R.id.player2EditText);
-        // new game button
-        newGameButton = (Button)findViewById(R.id.newGameButton);
-
-        //displayScores();
-    }
-    @Override
-    // connected to EditText widget
-    public boolean OnEditorAction(TextView v, int actionID, KeyEvent event)
-    {
-        // Close the soft keyboard
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        return false;
-    }
-
-    @Override
-    // this would replace onClickListener...
-    public void OnClick(View v)
-    {
-        play(v);
-    }
-
-    // name edits
-    @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
-        outState.putInt(player1ScoreTV.toString(), game.getPlayer1Score());
-        outState.putInt(player2ScoreTV.toString(), game.getPlayer2Score());
-        super.onSaveInstanceState(outState);
-    }
 }
