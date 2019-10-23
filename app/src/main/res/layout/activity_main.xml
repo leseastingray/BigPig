@@ -13,14 +13,14 @@
         android:layout_marginStart="79dp"
         android:layout_marginTop="53dp"
         android:layout_marginBottom="650dp"
+        android:autofillHints=""
         android:hint="@string/player_1_name_text"
         android:inputType="text"
         android:text=""
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1NameLabel"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/player1NameLabel" />
 
     <EditText
         android:id="@+id/player2EditText"
@@ -29,25 +29,26 @@
         android:layout_marginTop="53dp"
         android:layout_marginEnd="79dp"
         android:layout_marginBottom="650dp"
+        android:autofillHints=""
         android:hint="@string/player_2_name_text"
         android:inputType="text"
         android:text=""
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player2NameLabel"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/player2NameLabel" />
 
     <TextView
         android:id="@+id/player1ScoreLabel"
         android:layout_width="96dp"
         android:layout_height="32dp"
+        android:layout_marginStart="79dp"
         android:layout_marginTop="61dp"
         android:text="@string/player_1_score_label"
         android:textAlignment="center"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/player1EditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player1EditText"
         app:layout_marginLeft="70dp" />
 
@@ -68,7 +69,7 @@
         android:layout_width="96dp"
         android:layout_height="32dp"
         android:layout_marginStart="79dp"
-        android:onClick="play"
+        android:onClick="onClick"
         android:text="@string/roll_die_button"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/endTurnButton"
@@ -114,13 +115,15 @@
     <TextView
         android:id="@+id/player1NameLabel"
         android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_height="0dp"
         android:layout_marginStart="79dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
+        android:layout_marginBottom="182dp"
         android:text="@string/player_1_name_label"
         android:textAlignment="center"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/turnNameTextView"
         app:layout_constraintEnd_toStartOf="@+id/player2NameLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -128,14 +131,14 @@
     <TextView
         android:id="@+id/player2NameLabel"
         android:layout_width="96dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="79dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="187dp"
         android:text="@string/player_2_name_label"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/player2EditText"
+        app:layout_constraintBottom_toTopOf="@+id/turnNameLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/player1NameLabel"
         app:layout_constraintTop_toTopOf="parent" />
@@ -143,7 +146,7 @@
     <TextView
         android:id="@+id/turnPoints"
         android:layout_width="56dp"
-        android:layout_height="0dp"
+        android:layout_height="32dp"
         android:layout_marginBottom="180dp"
         android:text="@string/turn_points"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -166,5 +169,30 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dieImageView" />
+
+    <TextView
+        android:id="@+id/turnNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="482dp"
+        android:text="@string/turn_name_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/turnNameLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player1NameLabel" />
+
+    <TextView
+        android:id="@+id/turnNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="480dp"
+        android:text="@string/turn_name_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/turnNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/player2NameLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

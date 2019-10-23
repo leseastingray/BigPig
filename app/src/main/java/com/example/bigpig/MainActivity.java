@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private TextView player1ScoreTextView;
     private TextView player2ScoreTextView;
     private TextView turnPointsTextView;
+    private TextView turnNameTextView;
     private ImageView dieView;
     private Button rollDieButton;
     private Button endTurnButton ;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
 
     private String player1NameString = "";
     private String player2NameString = "";
+    private String currentPlayer = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,18 @@ public class MainActivity extends AppCompatActivity
         player1NameEditText = (EditText)findViewById(R.id.player1EditText);
         // player2 editText name
         player2NameEditText = (EditText)findViewById(R.id.player2EditText);
+        // turnName TextView
+        turnNameTextView = (TextView)findViewById(R.id.turnNameTextView);
+        // turnPoints TextView
+        turnPointsTextView = (TextView)findViewById(R.id.turnNameTextView);
         // new game button
         newGameButton = (Button)findViewById(R.id.newGameButton);
         // rollDie button
         rollDieButton = (Button)findViewById(R.id.rollDieButton);
         // endTurn
         endTurnButton = (Button)findViewById(R.id.endTurnButton);
+        // dieView
+        dieView = (ImageView)findViewById(R.id.dieImageView);
 
         // onEditor listeners
         player1NameEditText.setOnEditorActionListener(this);
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity
         if (actionID == EditorInfo.IME_ACTION_DONE ||
                 actionID == EditorInfo.IME_ACTION_UNSPECIFIED)
         {
+            // UI
             player1NameEditText.setText(player1NameString);
             player2NameEditText.setText(player2NameString);
         }
@@ -135,15 +144,24 @@ public class MainActivity extends AppCompatActivity
             //     calculate points
             //     check for winner
             //     change turn
+            //     switch players and set turn text
             // newGameButton:
             //     reset game
             case R.id.rollDieButton:
                 int playerRoll = game.rollDie();
+
+                // display roll
+                displayDie(playerRoll);
                 turnPointsTextView.setText(playerRoll);
                 break;
             case R.id.endTurnButton:
+
                 game.checkForWinner();
+
                 game.changeTurn();
+
+                currentPlayer = game.getCurrentPlayer();
+                turnNameTextView.setText(currentPlayer);
                 break;
             case R.id.newGameButton:
                 game.resetGame();
@@ -151,39 +169,33 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // event handlers
-    public void play(View v)
+    private void displayDie(int id)
     {
-        int playerRoll = game.rollDie();
-        turnPointsTextView.setText(playerRoll);
-    }
-    private void displayDie(Die die)
-    {
-        int id = 0;
+        id = 0;
 
-        switch (die)
+        switch (id)
         {
-            case one:
+            case 1:
                 id = R.drawable.die8side1;
                 break;
-            case two:
+            case 2:
                 id = R.drawable.die8side2;
                 break;
-            case three:
+            case 3:
                 id = R.drawable.die8side3;
-            case four:
+            case 4:
                 id = R.drawable.die8side4;
                 break;
-            case five:
+            case 5:
                 id = R.drawable.die8side5;
                 break;
-            case six:
+            case 6:
                 id = R.drawable.die8side6;
                 break;
-            case seven:
+            case 7:
                 id = R.drawable.die8side7;
                 break;
-            case eight:
+            case 8:
                 id = R.drawable.die8side8;
                 break;
         }
