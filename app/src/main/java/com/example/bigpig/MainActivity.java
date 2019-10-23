@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 
     // for saving and restoring values
     private SharedPreferences savedValues;
+    // for preferences
+    private SharedPreferences prefs;
 
     private String player1NameString = "";
     private String player2NameString = "";
@@ -76,6 +79,9 @@ public class MainActivity extends AppCompatActivity
         rollDieButton.setOnClickListener(this);
         endTurnButton.setOnClickListener(this);
 
+        // set preferences
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //SharedPreferences for saving values
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
 
