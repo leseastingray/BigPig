@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     private String player1NameString = "";
     private String player2NameString = "";
+    private int player1Score = 0;
+    private int player2Score = 0;
     private String currentPlayer = "";
 
     @Override
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity
         turnNameTextView = (TextView)findViewById(R.id.turnNameTextView);
         // turnPoints TextView
         turnPointsTextView = (TextView)findViewById(R.id.turnNameTextView);
+        // player1Score TextView
+        player1ScoreTextView = (TextView)findViewById(R.id.player1ScoreTextView);
+        // player2Score TextView
+        player2ScoreTextView = (TextView)findViewById(R.id.player2ScoreTextView);
         // new game button
         newGameButton = (Button)findViewById(R.id.newGameButton);
         // rollDie button
@@ -124,6 +130,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
+        outState.putString(player1NameString,player1NameString);
+        outState.putString(player2NameString, player2NameString);
         outState.putInt(player1ScoreTextView.toString(), game.getPlayer1Score());
         outState.putInt(player2ScoreTextView.toString(), game.getPlayer2Score());
         super.onSaveInstanceState(outState);
@@ -155,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                 turnPointsTextView.setText(playerRoll);
                 break;
             case R.id.endTurnButton:
-
+                game.getTurnPoints();
                 game.checkForWinner();
 
                 game.changeTurn();

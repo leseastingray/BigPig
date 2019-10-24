@@ -42,8 +42,8 @@
         android:id="@+id/player1ScoreLabel"
         android:layout_width="96dp"
         android:layout_height="32dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="24dp"
         android:text="@string/player_1_score_label"
         android:textAlignment="center"
         android:textSize="12sp"
@@ -56,11 +56,13 @@
         android:id="@+id/player2ScoreLabel"
         android:layout_width="96dp"
         android:layout_height="32dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="78dp"
         android:text="@string/player_2_score_label"
         android:textAlignment="center"
         android:textSize="12sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/player2EditText"
         app:layout_constraintTop_toBottomOf="@+id/player2EditText" />
 
@@ -116,7 +118,7 @@
         android:id="@+id/player1NameLabel"
         android:layout_width="96dp"
         android:layout_height="0dp"
-        android:layout_marginStart="79dp"
+        android:layout_marginStart="73dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="182dp"
@@ -132,7 +134,7 @@
         android:id="@+id/player2NameLabel"
         android:layout_width="96dp"
         android:layout_height="0dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="79dp"
         android:layout_marginBottom="187dp"
         android:text="@string/player_2_name_label"
@@ -194,5 +196,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/turnNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/player2NameLabel" />
+
+    <TextView
+        android:id="@+id/player1ScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="11dp"
+        android:text="@string/player_1_score_text"
+        app:layout_constraintStart_toStartOf="@+id/player1ScoreLabel"
+        app:layout_constraintTop_toBottomOf="@+id/player1ScoreLabel" />
+
+    <TextView
+        android:id="@+id/player2ScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/player_2_score_text"
+        app:layout_constraintStart_toStartOf="@+id/player2ScoreLabel"
+        app:layout_constraintTop_toBottomOf="@+id/player2ScoreLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
