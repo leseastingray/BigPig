@@ -42,15 +42,19 @@ public class MainActivity extends AppCompatActivity
     private String player1NameString = "";
     private String player2NameString = "";
     private int player1Score = 0;
+    private String player1ScoreString = "";
     private int player2Score = 0;
+    private String player2ScoreString = "";
     private String currentPlayer = "";
+    private String currentPoints = "";
+    private int turnPoints = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PigGame game = new PigGame();
+        game = new PigGame();
 
         // Widget references
         // player1 editText name
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         // turnName TextView
         turnNameTextView = (TextView)findViewById(R.id.turnNameTextView);
         // turnPoints TextView
-        turnPointsTextView = (TextView)findViewById(R.id.turnNameTextView);
+        turnPointsTextView = (TextView)findViewById(R.id.turnPointsTextView);
         // player1Score TextView
         player1ScoreTextView = (TextView)findViewById(R.id.player1ScoreTextView);
         // player2Score TextView
@@ -119,9 +123,19 @@ public class MainActivity extends AppCompatActivity
         if (actionID == EditorInfo.IME_ACTION_DONE ||
                 actionID == EditorInfo.IME_ACTION_UNSPECIFIED)
         {
-            // UI
+            // set player names in UI
+            player1NameString = player1NameEditText.getText().toString();
+            player2NameString = player2NameEditText.getText().toString();
             player1NameEditText.setText(player1NameString);
             player2NameEditText.setText(player2NameString);
+            // set player names in the game class
+            game.setPlayer1Name(player1NameString);
+            game.setPlayer2Name(player2NameString);
+            // set up widget displays
+            turnNameTextView.setText(player1NameString);
+            player1ScoreTextView.setText("0");
+            player2ScoreTextView.setText("0");
+
         }
         return false;
     }
@@ -160,20 +174,30 @@ public class MainActivity extends AppCompatActivity
 
                 // display roll
                 displayDie(playerRoll);
-                turnPointsTextView.setText(playerRoll);
+                currentPoints = Integer.toString(playerRoll);
+                turnPointsTextView.setText(currentPoints);
                 break;
             case R.id.endTurnButton:
-                game.getTurnPoints();
-                game.checkForWinner();
-
+                // get selected turn points
+                turnPoints = game.getTurnPoints();
+                // change turn (math)
                 game.changeTurn();
-
+                // get current player
                 currentPlayer = game.getCurrentPlayer();
+
+                // TODO: WORK ON update score displays
+                player1ScoreTextView.setText(Integer.toString(player1Score));
+                player2ScoreTextView.setText(Integer.toString(player2Score));
+
+                // check for winner
+                game.checkForWinner();
+                // update turn name display
                 turnNameTextView.setText(currentPlayer);
                 break;
             case R.id.newGameButton:
                 game.resetGame();
-
+                resetGameUI();
+                game = new PigGame();
         }
     }
 
@@ -208,6 +232,25 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         dieView.setImageResource(id);
+    }
+    // reset UI
+    private void resetGameUI()
+    {
+        // reset UI variables
+        player1NameString = "";
+        player2NameString = "";
+        player1ScoreString = "";
+        player2ScoreString = "";
+        currentPlayer = "";
+        currentPoints = "";
+
+        // reset widgets
+        player1NameEditText.setText("");
+        player2NameEditText.setText("");
+        player1ScoreTextView.setText("");
+        player2ScoreTextView.setText("");
+        turnNameTextView.setText("");
+        turnPointsTextView.setText("");
     }
 
 }
