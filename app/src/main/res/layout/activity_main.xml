@@ -52,7 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/die8side8" />
+        app:srcCompat="@drawable/die8side8"
+        tools:srcCompat="@drawable/die8side8" />
 
     <TextView
         android:id="@+id/player2NameLabel"

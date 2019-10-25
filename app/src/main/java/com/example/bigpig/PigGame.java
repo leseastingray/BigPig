@@ -75,7 +75,7 @@ public class PigGame {
 
     public int rollDie()
     {
-        int roll = rand.nextInt(6) + 1;
+        int roll = rand.nextInt(8) + 1;
 
         if(roll != 1)
         {

@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity
     // for saving and restoring values
     private SharedPreferences savedValues;
 
-    private String player1NameString = "";
-    private String player2NameString = "";
+    private String player1Name = "";
+    private String player2Name = "";
     private int player1Score = 0;
     private String player1ScoreString = "";
     private int player2Score = 0;
     private String player2ScoreString = "";
     private String currentPlayer = "";
     private String currentPoints = "";
+    private int playerRoll = 0;
     private int turnPoints = 0;
 
     @Override
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         endTurnButton = (Button)findViewById(R.id.endTurnButton);
         // dieView
         dieView = (ImageView)findViewById(R.id.dieImageView);
+        dieView.setImageResource(R.drawable.die8side8);
 
         // onEditor listeners
         player1NameEditText.setOnEditorActionListener(this);
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         rollDieButton.setOnClickListener(this);
         endTurnButton.setOnClickListener(this);
 
+        // set focus to Player1NameEditText
+        player1NameEditText.requestFocus();
         //SharedPreferences for saving values
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
 
@@ -95,8 +99,8 @@ public class MainActivity extends AppCompatActivity
     {
         // save instance variables
         Editor editor = savedValues.edit();
-        editor.putString("player1NameString", player1NameString);
-        editor.putString("player2NameString", player2NameString);
+        editor.putString("player1NameString", player1Name);
+        editor.putString("player2NameString", player2Name);
 
         editor.commit();
         super.onPause();
@@ -107,8 +111,8 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         // get instance variables
-        player1NameString = savedValues.getString("player1NameString", "");
-        player2NameString = savedValues.getString("player2NameString", "");
+        player1Name = savedValues.getString("player1NameString", "");
+        player2Name = savedValues.getString("player2NameString", "");
     }
 
     @Override
@@ -124,17 +128,19 @@ public class MainActivity extends AppCompatActivity
                 actionID == EditorInfo.IME_ACTION_UNSPECIFIED)
         {
             // set player names in UI
-            player1NameString = player1NameEditText.getText().toString();
-            player2NameString = player2NameEditText.getText().toString();
-            player1NameEditText.setText(player1NameString);
-            player2NameEditText.setText(player2NameString);
+            player1Name = player1NameEditText.getText().toString();
+            player2Name = player2NameEditText.getText().toString();
+            player1NameEditText.setText(player1Name);
+            player2NameEditText.setText(player2Name);
             // set player names in the game class
-            game.setPlayer1Name(player1NameString);
-            game.setPlayer2Name(player2NameString);
+            game.setPlayer1Name(player1Name);
+            game.setPlayer2Name(player2Name);
             // set up widget displays
-            turnNameTextView.setText(player1NameString);
+            turnNameTextView.setText(player1Name);
             player1ScoreTextView.setText("0");
             player2ScoreTextView.setText("0");
+            // set focus to roll button
+            rollDieButton.requestFocus();
 
         }
         return false;
@@ -144,8 +150,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
-        outState.putString(player1NameString,player1NameString);
-        outState.putString(player2NameString, player2NameString);
+        outState.putString(player1Name,player1Name);
+        outState.putString(player2Name, player2Name);
         outState.putInt(player1ScoreTextView.toString(), game.getPlayer1Score());
         outState.putInt(player2ScoreTextView.toString(), game.getPlayer2Score());
         super.onSaveInstanceState(outState);
@@ -170,8 +176,13 @@ public class MainActivity extends AppCompatActivity
             // newGameButton:
             //     reset game
             case R.id.rollDieButton:
-                int playerRoll = game.rollDie();
+                playerRoll = game.rollDie();
 
+                // disable roll button if 8
+                if (playerRoll == 8)
+                {
+                    rollDieButton.setEnabled(false);
+                }
                 // TODO work on die image display!
                 displayDie(playerRoll);
 
@@ -181,14 +192,24 @@ public class MainActivity extends AppCompatActivity
             case R.id.endTurnButton:
                 // get turn points
                 turnPoints = game.getTurnPoints();
+
+                // TODO figure out how to return 0 for turnPoints if 8 roll
+
                 // change turn (math)
                 game.changeTurn();
                 // get current player
                 currentPlayer = game.getCurrentPlayer();
+                // if currentPlayer == player1
+                //    set player1 score
+                //    update player1ScoreTextView
+                // else
+                //    set player2 score
+                //    update player2ScoreTextView
 
                 player1Score = game.getPlayer1Score();
-                player2Score = game.getPlayer2Score();
                 player1ScoreTextView.setText(Integer.toString(player1Score));
+
+                player2Score = game.getPlayer2Score();
                 player2ScoreTextView.setText(Integer.toString(player2Score));
 
                 // check for winner
@@ -205,11 +226,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void displayDie(int id)
+    private void displayDie(int dieRoll)
     {
-        id = 0;
+        int id = 0;
 
-        switch (id)
+        switch (dieRoll)
         {
             case 1:
                 id = R.drawable.die8side1;
@@ -219,6 +240,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 3:
                 id = R.drawable.die8side3;
+                break;
             case 4:
                 id = R.drawable.die8side4;
                 break;
@@ -241,8 +263,8 @@ public class MainActivity extends AppCompatActivity
     private void resetGameUI()
     {
         // reset UI variables
-        player1NameString = "";
-        player2NameString = "";
+        player1Name = "";
+        player2Name = "";
         player1ScoreString = "";
         player2ScoreString = "";
         currentPlayer = "";
