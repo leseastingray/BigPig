@@ -172,25 +172,29 @@ public class MainActivity extends AppCompatActivity
             case R.id.rollDieButton:
                 int playerRoll = game.rollDie();
 
-                // display roll
+                // TODO work on die image display!
                 displayDie(playerRoll);
+
                 currentPoints = Integer.toString(playerRoll);
                 turnPointsTextView.setText(currentPoints);
                 break;
             case R.id.endTurnButton:
-                // get selected turn points
+                // get turn points
                 turnPoints = game.getTurnPoints();
                 // change turn (math)
                 game.changeTurn();
                 // get current player
                 currentPlayer = game.getCurrentPlayer();
 
-                // TODO: WORK ON update score displays
+                player1Score = game.getPlayer1Score();
+                player2Score = game.getPlayer2Score();
                 player1ScoreTextView.setText(Integer.toString(player1Score));
                 player2ScoreTextView.setText(Integer.toString(player2Score));
 
                 // check for winner
                 game.checkForWinner();
+                // update turn points
+                turnPointsTextView.setText("");
                 // update turn name display
                 turnNameTextView.setText(currentPlayer);
                 break;
