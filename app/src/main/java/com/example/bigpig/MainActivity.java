@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity
     private TextView turnNameTextView;
     private ImageView dieView;
     private Button rollDieButton;
-    private Button endTurnButton ;
+    private Button endTurnButton;
     private Button newGameButton;
+    private TextView winnerTextView;
 
     // for saving and restoring values
     private SharedPreferences savedValues;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     private String currentPoints = "";
     private int playerRoll = 0;
     private int turnPoints = 0;
+    private String yesWinner = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity
         // dieView
         dieView = (ImageView)findViewById(R.id.dieImageView);
         dieView.setImageResource(R.drawable.die8side8);
+        // winner TextView
+        winnerTextView = (TextView)findViewById(R.id.winner);
 
         // onEditor listeners
         player1NameEditText.setOnEditorActionListener(this);
@@ -101,6 +105,10 @@ public class MainActivity extends AppCompatActivity
         Editor editor = savedValues.edit();
         editor.putString("player1NameString", player1Name);
         editor.putString("player2NameString", player2Name);
+        editor.putInt("player1Score", player1Score);
+        editor.putInt("player2Score", player2Score);
+        editor.putString("currentPoints", currentPoints);
+        editor.putString("currentPlayer", currentPlayer);
 
         editor.commit();
         super.onPause();
@@ -113,6 +121,10 @@ public class MainActivity extends AppCompatActivity
         // get instance variables
         player1Name = savedValues.getString("player1NameString", "");
         player2Name = savedValues.getString("player2NameString", "");
+        player1Score = savedValues.getInt("player1Score", 0);
+        player2Score = savedValues.getInt("player2Score",0);
+        currentPoints = savedValues.getString("currentPoints","");
+        currentPlayer = savedValues.getString("currentPlayer", "");
     }
 
     @Override
@@ -199,12 +211,7 @@ public class MainActivity extends AppCompatActivity
                 game.changeTurn();
                 // get current player
                 currentPlayer = game.getCurrentPlayer();
-                // if currentPlayer == player1
-                //    set player1 score
-                //    update player1ScoreTextView
-                // else
-                //    set player2 score
-                //    update player2ScoreTextView
+
 
                 player1Score = game.getPlayer1Score();
                 player1ScoreTextView.setText(Integer.toString(player1Score));
@@ -213,11 +220,19 @@ public class MainActivity extends AppCompatActivity
                 player2ScoreTextView.setText(Integer.toString(player2Score));
 
                 // check for winner
-                game.checkForWinner();
+                yesWinner = game.checkForWinner();
+                if (yesWinner != "")
+                {
+                    winnerTextView.setText(yesWinner);
+                    rollDieButton.setEnabled(false);
+                    endTurnButton.setEnabled(false);
+                }
                 // update turn points
                 turnPointsTextView.setText("");
                 // update turn name display
                 turnNameTextView.setText(currentPlayer);
+                // re-enable roll die
+                rollDieButton.setEnabled(true);
                 break;
             case R.id.newGameButton:
                 game.resetGame();
@@ -269,6 +284,8 @@ public class MainActivity extends AppCompatActivity
         player2ScoreString = "";
         currentPlayer = "";
         currentPoints = "";
+        yesWinner = "";
+
 
         // reset widgets
         player1NameEditText.setText("");
@@ -277,6 +294,11 @@ public class MainActivity extends AppCompatActivity
         player2ScoreTextView.setText("");
         turnNameTextView.setText("");
         turnPointsTextView.setText("");
+        winnerTextView.setText("");
+
+        // enable buttons
+        rollDieButton.setEnabled(true);
+        endTurnButton.setEnabled(true);
     }
 
 }
