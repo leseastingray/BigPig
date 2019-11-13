@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity
     private String player1Name = "";
     private String player2Name = "";
     private int player1Score = 0;
-    private String player1ScoreString = "";
     private int player2Score = 0;
+    private String player1ScoreString = "";
     private String player2ScoreString = "";
     private String currentPlayer = "";
     private String currentPoints = "";
-    private int playerRoll = 0;
     private int turnPoints = 0;
+    private int playerRoll = 0;
     private String yesWinner = "";
 
     @Override
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         editor.putString("player2NameString", player2Name);
         editor.putInt("player1Score", player1Score);
         editor.putInt("player2Score", player2Score);
+        editor.putInt("playerRoll", playerRoll);
         editor.putString("currentPoints", currentPoints);
         editor.putString("currentPlayer", currentPlayer);
 
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity
         player2Name = savedValues.getString("player2NameString", "");
         player1Score = savedValues.getInt("player1Score", 0);
         player2Score = savedValues.getInt("player2Score",0);
+        playerRoll = savedValues.getInt("playerRoll", 0);
         currentPoints = savedValues.getString("currentPoints","");
         currentPlayer = savedValues.getString("currentPlayer", "");
     }
@@ -162,10 +164,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
-        outState.putString(player1Name,player1Name);
-        outState.putString(player2Name, player2Name);
-        outState.putInt(player1ScoreTextView.toString(), game.getPlayer1Score());
-        outState.putInt(player2ScoreTextView.toString(), game.getPlayer2Score());
+        outState.putString("player1Name", player1Name);
+        outState.putString("player2Name", player2Name);
+        outState.putInt("player1Score", player1Score);
+        outState.putInt("player2score", player2Score);
+        outState.putInt("playerRoll", playerRoll);
         super.onSaveInstanceState(outState);
     }
 
@@ -195,7 +198,6 @@ public class MainActivity extends AppCompatActivity
                 {
                     rollDieButton.setEnabled(false);
                 }
-                // TODO work on die image display!
                 displayDie(playerRoll);
 
                 currentPoints = Integer.toString(playerRoll);

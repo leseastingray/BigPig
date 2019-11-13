@@ -38,7 +38,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dieImageView" />
 
@@ -91,16 +91,17 @@
         android:id="@+id/turnNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="48dp"
         android:text="@string/turn_name_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/turnNameTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507" />
 
     <EditText
         android:id="@+id/player2EditText"
-        android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
         android:layout_marginEnd="196dp"
         android:layout_marginBottom="650dp"
@@ -116,22 +117,20 @@
 
     <TextView
         android:id="@+id/player2ScoreLabel"
-        android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_width="95dp"
+        android:layout_height="27dp"
         android:layout_marginEnd="78dp"
         android:text="@string/player_2_score_label"
         android:textAlignment="center"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/player2EditText"
         app:layout_constraintTop_toBottomOf="@+id/player2EditText" />
 
     <EditText
         android:id="@+id/player1EditText"
-        android:layout_width="96dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="192dp"
         android:layout_marginTop="53dp"
         android:layout_marginBottom="650dp"
@@ -159,21 +158,20 @@
 
     <TextView
         android:id="@+id/turnPointsTextView"
-        android:layout_width="56dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="264dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="364dp"
+        android:layout_marginBottom="268dp"
         android:text="@string/turn_points"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/turnPointsLabel"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="312dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="308dp"
         android:text="@string/turn_points_label"
         android:textAlignment="center"
         android:textStyle="bold"
@@ -182,8 +180,8 @@
 
     <TextView
         android:id="@+id/turnNameTextView"
-        android:layout_width="32dp"
-        android:layout_height="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="59dp"
         android:layout_marginEnd="6dp"
         android:text="@string/turn_name_text"
@@ -218,7 +216,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/winner_text"
-        tools:layout_editor_absoluteX="562dp"
-        tools:layout_editor_absoluteY="188dp" />
+        tools:layout_editor_absoluteX="559dp"
+        tools:layout_editor_absoluteY="290dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
