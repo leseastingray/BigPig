@@ -22,13 +22,10 @@ import android.view.KeyEvent;
 import java.util.Random;
 import android.os.Bundle;
 
-public class MainFragment extends Fragment
-    implements OnEditorActionListener, OnClickListener
+public class MainFragment extends Fragment implements OnClickListener
 {
     // variable and field declarations
     private PigGame game;
-    private EditText player1NameEditText;
-    private EditText player2NameEditText;
     private TextView player1ScoreTextView;
     private TextView player2ScoreTextView;
     private TextView turnPointsTextView;
@@ -42,8 +39,6 @@ public class MainFragment extends Fragment
     // for saving and restoring values
     private SharedPreferences savedValues;
 
-    private String player1Name = "";
-    private String player2Name = "";
     private int player1Score = 0;
     private int player2Score = 0;
     private String player1ScoreString = "";
@@ -57,45 +52,26 @@ public class MainFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         game = new PigGame();
-
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // inflate layout
-        // inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main,
-                container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // Widget references
-        // player1 editText name
-        player1NameEditText = (EditText) findViewById(R.id.player1EditText);
-        // player2 editText name
-        player2NameEditText = (EditText) findViewById(R.id.player2EditText););
-        // new game button
-        newGameButton = (Button) findViewById(R.id.newGameButton);
-
-
-        // onEditor listeners
-        player1NameEditText.setOnEditorActionListener(this);
-        player2NameEditText.setOnEditorActionListener(this);
-        // onClick listeners
-        newGameButton.setOnClickListener(this);
+        rollDieButton = (Button)view.findViewById(R.id.rollDieButton);
+        endTurnButton = (Button)view.findViewById(R.id.endTurnButton);
         rollDieButton.setOnClickListener(this);
         endTurnButton.setOnClickListener(this);
 
-        // set focus to Player1NameEditText
-        player1NameEditText.requestFocus();
         //SharedPreferences for saving values
-        savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+        //savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+        return view;
 
     }
-
+    /*
     @Override
     public void onPause()
     {
@@ -127,40 +103,9 @@ public class MainFragment extends Fragment
         currentPlayer = savedValues.getString("currentPlayer", "");
     }
 
-    @Override
-    // connected to EditText widget
-    public boolean onEditorAction(TextView v, int actionID, KeyEvent event)
-    {
-        // Close the soft keyboard
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-        // set
-        if (actionID == EditorInfo.IME_ACTION_DONE ||
-                actionID == EditorInfo.IME_ACTION_UNSPECIFIED)
-        {
-            // set player names in UI
-            player1Name = player1NameEditText.getText().toString();
-            player2Name = player2NameEditText.getText().toString();
-            player1NameEditText.setText(player1Name);
-            player2NameEditText.setText(player2Name);
-            // set player names in the game class
-            game.setPlayer1Name(player1Name);
-            game.setPlayer2Name(player2Name);
-            // set up widget displays
-            turnNameTextView.setText(player1Name);
-            player1ScoreTextView.setText("0");
-            player2ScoreTextView.setText("0");
-            // set focus to roll button
-            rollDieButton.requestFocus();
-
-        }
-        return false;
-    }
-
     // name edits
     @Override
-    protected void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(Bundle outState)
     {
         outState.putString("player1Name", player1Name);
         outState.putString("player2Name", player2Name);
@@ -169,7 +114,7 @@ public class MainFragment extends Fragment
         outState.putInt("playerRoll", playerRoll);
         super.onSaveInstanceState(outState);
     }
-
+    */
     @Override
     // this would replace onClickListener...
     public void onClick(View v)
@@ -205,7 +150,6 @@ public class MainFragment extends Fragment
                 // get turn points
                 turnPoints = game.getTurnPoints();
 
-                // TODO figure out how to return 0 for turnPoints if 8 roll
 
                 // change turn (math)
                 game.changeTurn();
@@ -234,10 +178,6 @@ public class MainFragment extends Fragment
                 // re-enable roll die
                 rollDieButton.setEnabled(true);
                 break;
-            case R.id.newGameButton:
-                game.resetGame();
-                resetGameUI();
-                game = new PigGame();
         }
     }
 
@@ -278,8 +218,6 @@ public class MainFragment extends Fragment
     private void resetGameUI()
     {
         // reset UI variables
-        player1Name = "";
-        player2Name = "";
         player1ScoreString = "";
         player2ScoreString = "";
         currentPlayer = "";
@@ -288,8 +226,6 @@ public class MainFragment extends Fragment
 
 
         // reset widgets
-        player1NameEditText.setText("");
-        player2NameEditText.setText("");
         player1ScoreTextView.setText("");
         player2ScoreTextView.setText("");
         turnNameTextView.setText("");

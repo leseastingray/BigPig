@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment android:name="com.example.bigpig.MainFragment"
-        android:id="@+id/fragment_main"
+    <fragment android:name="com.example.bigpig.OpeningFragment"
+        android:id="@+id/fragment_opening"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />

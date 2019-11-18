@@ -1,6 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/rollDieButton"
+        android:layout_width="96dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="156dp"
+        android:onClick="onClick"
+        android:text="@string/roll_die_button"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/endTurnButton" />
+
+    <Button
+        android:id="@+id/endTurnButton"
+        android:layout_width="96dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/end_turn_button"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/newGameButton"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/dieImageView"
+        android:layout_width="127dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="@string/_8_side_die_image"
+        app:layout_constraintBottom_toTopOf="@+id/newGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/die8side8"
+        tools:srcCompat="@drawable/die8side8" />
+
+
+    <TextView
+        android:id="@+id/turnNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/turn_name_label"
+        app:layout_constraintBottom_toTopOf="@+id/dieImageView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/player2ScoreLabel"
+        android:layout_width="96dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="78dp"
+        android:text="@string/player_2_score_label"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="@+id/player2EditText"
+        app:layout_constraintTop_toBottomOf="@+id/player2EditText" />
+
+
+    <TextView
+        android:id="@+id/player1ScoreLabel"
+        android:layout_width="96dp"
+        android:layout_height="32dp"
+        android:text="@string/player_1_score_label"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <TextView
+        android:id="@+id/turnPointsTextView"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="160dp"
+        android:text="@string/turn_points"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/turnPointsLabel"
+        android:layout_width="262dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="29dp"
+        android:text="@string/turn_points_label"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/turnPointsTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dieImageView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/turnNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/turn_name_text"
+        app:layout_constraintBottom_toTopOf="@+id/dieImageView"
+        app:layout_constraintEnd_toStartOf="@+id/turnNameLabel"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/player1ScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/player_1_score_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player1ScoreLabel" />
+
+    <TextView
+        android:id="@+id/player2ScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="112dp"
+        android:text="@string/player_2_score_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player2ScoreLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

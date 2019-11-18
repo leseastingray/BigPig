@@ -1,17 +1,16 @@
 package com.example.bigpig;
 
+import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
-public class MainActivity extends AppCompatActivity
-{
+public class OpeningActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // set view
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_opening);
     }
 }
